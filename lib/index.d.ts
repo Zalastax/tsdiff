@@ -40,3 +40,5 @@ export declare function diffArray<V>(a: V[], b: V[], acc?: ArrayChange<V>[], bas
 export declare function diffSeq<T, C extends Collection.Indexed<T>>(a: C, b: C, acc?: ArrayChange<T>[], base?: (string | number)[]): ArrayChange<T>[];
 export declare function similar(a: any, b: any): boolean;
 export declare function equal(a: any, b: any): boolean;
+export declare function lastKey(change: Change<any>): string | number;
+export declare function index(change: Change<any>): number;

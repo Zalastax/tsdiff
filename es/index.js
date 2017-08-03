@@ -187,8 +187,7 @@ function diffRecursive(a, b, acc, base) {
             var mapDiffs = diffMap(a, b, [], base);
             mapDiffs.forEach(function (d) {
                 if (d.type === "set") {
-                    var index = d.path[d.path.length - 1];
-                    diffRecursive(a.get(index), d.val, acc, d.path);
+                    diffRecursive(a.get(lastKey(d)), d.val, acc, d.path);
                 }
                 else {
                     acc.push(d);
@@ -200,8 +199,7 @@ function diffRecursive(a, b, acc, base) {
                 var recordDiffs = diffRecord(a, b, [], base);
                 recordDiffs.forEach(function (d) {
                     if (d.type === "set") {
-                        var index = d.path[d.path.length - 1];
-                        diffRecursive(a.get(index), d.val, acc, d.path);
+                        diffRecursive(a.get(lastKey(d)), d.val, acc, d.path);
                     }
                     else {
                         acc.push(d);
@@ -216,8 +214,7 @@ function diffRecursive(a, b, acc, base) {
             var diffs = diffObject(a, b, [], base);
             diffs.forEach(function (d) {
                 if (d.type === "set") {
-                    var index = d.path[d.path.length - 1];
-                    diffRecursive(a[index], d.val, acc, d.path);
+                    diffRecursive(a[lastKey(d)], d.val, acc, d.path);
                 }
                 else {
                     acc.push(d);
@@ -431,5 +428,11 @@ function equal(a, b) {
         return a === b || Number.isNaN(a) && Number.isNaN(b);
     }
 }
+function lastKey(change) {
+    return change.path[change.path.length - 1];
+}
+function index(change) {
+    return +lastKey(change);
+}
 
-export { objectDifferHOF, diffMap, diffRecord, diffObject, diffArray, diffSeq, similar, equal, lcs_greedy_modifications as lcsGreedy };export default diffRecursive;
+export { objectDifferHOF, diffMap, diffRecord, diffObject, diffArray, diffSeq, similar, equal, lastKey, index, lcs_greedy_modifications as lcsGreedy };export default diffRecursive;

@@ -74,8 +74,7 @@ export default function diffRecursive(a: any, b: any, acc: RecursiveChange[] = [
 
           mapDiffs.forEach(d => {
             if (d.type === "set") {
-              const index = d.path[d.path.length - 1]
-              diffRecursive(a.get(index), d.val, acc, d.path)
+              diffRecursive(a.get(lastKey(d)), d.val, acc, d.path)
             } else {
               acc.push(d)
             }
@@ -86,8 +85,7 @@ export default function diffRecursive(a: any, b: any, acc: RecursiveChange[] = [
 
             recordDiffs.forEach(d => {
               if (d.type === "set") {
-                const index = d.path[d.path.length - 1]
-                diffRecursive((a as any).get(index), d.val, acc, d.path)
+                diffRecursive((a as any).get(lastKey(d)), d.val, acc, d.path)
               } else {
                 acc.push(d)
               }
@@ -101,8 +99,7 @@ export default function diffRecursive(a: any, b: any, acc: RecursiveChange[] = [
 
           diffs.forEach(d => {
             if (d.type === "set") {
-              const index = d.path[d.path.length - 1]
-              diffRecursive(a[index], d.val, acc, d.path)
+              diffRecursive(a[lastKey(d)], d.val, acc, d.path)
             } else {
               acc.push(d)
             }
@@ -371,4 +368,12 @@ export function equal(a: any, b: any) {
   } else {
     return a === b || Number.isNaN(a) && Number.isNaN(b)
   }
+}
+
+export function lastKey(change: Change<any>) {
+  return change.path[change.path.length - 1]
+}
+
+export function index(change: Change<any>) {
+  return +lastKey(change)
 }
