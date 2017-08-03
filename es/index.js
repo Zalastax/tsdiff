@@ -177,7 +177,7 @@ function diffRecursive(a, b, acc, base) {
     if (a === b || Number.isNaN(a) && Number.isNaN(b)) {
     }
     else if (a instanceof Array && b instanceof Array) {
-        applySeqDiffs(diffSeq(Seq.Indexed(a), Seq.Indexed(b), [], base));
+        applySeqDiffs(diffArray(a, b, [], base));
     }
     else if (a instanceof Object && b instanceof Object) {
         if (isIndexed(a) && isIndexed(b)) {
@@ -290,6 +290,11 @@ function freeObjectGet(obj, key) {
 var diffMap = objectDifferHOF(zipMaps, freeHas);
 var diffRecord = objectDifferHOF(zipRecords, freeHas);
 var diffObject = objectDifferHOF(zipObjects, freeObjectGet);
+function diffArray(a, b, acc, base) {
+    if (acc === void 0) { acc = []; }
+    if (base === void 0) { base = []; }
+    return diffSeq(Seq.Indexed(a), Seq.Indexed(b), acc, base);
+}
 function diffSeq(a, b, acc, base) {
     if (acc === void 0) { acc = []; }
     if (base === void 0) { base = []; }
@@ -427,4 +432,4 @@ function equal(a, b) {
     }
 }
 
-export { objectDifferHOF, diffMap, diffRecord, diffObject, diffSeq, similar, equal, lcs_greedy_modifications as lcsGreedy };export default diffRecursive;
+export { objectDifferHOF, diffMap, diffRecord, diffObject, diffArray, diffSeq, similar, equal, lcs_greedy_modifications as lcsGreedy };export default diffRecursive;

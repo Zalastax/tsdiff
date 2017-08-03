@@ -65,7 +65,7 @@ export default function diffRecursive(a: any, b: any, acc: RecursiveChange[] = [
   if (a === b || Number.isNaN(a) && Number.isNaN(b)) {
     // no-op
   } else if (a instanceof Array && b instanceof Array) {
-    applySeqDiffs(diffSeq(Seq.Indexed(a), Seq.Indexed(b), [], base))
+    applySeqDiffs(diffArray(a, b, [], base))
   } else if (a instanceof Object && b instanceof Object) {
     if (isIndexed(a) && isIndexed(b)) {
           applySeqDiffs(diffSeq(a, b, [], base))
@@ -207,6 +207,10 @@ export const diffRecord: <T, K extends keyof T>(
 
 export const diffObject: <T, K extends keyof T>(a: T, b: T, acc?: Change<T[K]>[], base?: K[]) => Change<T[K]>[]
  = objectDifferHOF(zipObjects, freeObjectGet)
+
+export function diffArray<V>(a: V[], b: V[], acc: ArrayChange<V>[] = [], base: (string | number)[] = []) {
+  return diffSeq(Seq.Indexed(a), Seq.Indexed(b), acc, base)
+}
 
 export function diffSeq<T, C extends Collection.Indexed<T>>(
   a: C, b: C, acc: ArrayChange<T>[] = [], base: (string | number)[] = []) {

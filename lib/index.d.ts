@@ -36,6 +36,7 @@ export declare function objectDifferHOF<T, K, V>(zipper: (a: T, b: T) => [K, V |
 export declare const diffMap: <K, V>(a: IMap<K, V>, b: IMap<K, V>, acc?: Change<V>[], base?: K[]) => Change<V>[];
 export declare const diffRecord: <T, K extends keyof T>(a: Record.Instance<T>, b: Record.Instance<T>, acc?: Change<T[K]>[], base?: K[]) => Change<T[K]>[];
 export declare const diffObject: <T, K extends keyof T>(a: T, b: T, acc?: Change<T[K]>[], base?: K[]) => Change<T[K]>[];
+export declare function diffArray<V>(a: V[], b: V[], acc?: ArrayChange<V>[], base?: (string | number)[]): ArrayChange<V>[];
 export declare function diffSeq<T, C extends Collection.Indexed<T>>(a: C, b: C, acc?: ArrayChange<T>[], base?: (string | number)[]): ArrayChange<T>[];
 export declare function similar(a: any, b: any): boolean;
 export declare function equal(a: any, b: any): boolean;
