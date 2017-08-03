@@ -1,0 +1,51 @@
+{
+  "name": "tsdiff",
+  "version": "0.1.0",
+  "description": "List the differences between one javascript value and another, with Immutable.js support",
+  "keywords": [
+    "diff",
+    "difference",
+    "change",
+    "changes",
+    "track",
+    "compare",
+    "change-tracking",
+    "patch",
+    "jsonpatch",
+    "object",
+    "variable",
+    "value",
+    "json",
+    "deep",
+    "recursive",
+    "tree"
+  ],
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "typings": "lib/index.d.ts",
+  "repository": "Zalastax/tsdiff",
+  "scripts": {
+    "rimraf": "rimraf lib es",
+    "lint": "tslint src/index.ts tests/index.ts",
+    "test": "(cd tests && ts-node ../node_modules/alsatian/cli/alsatian-cli.js index.ts)",
+    "build": "rollup -c",
+    "prepare": "install-self-peers -- --ignore-scripts",
+    "prepublish": "yarn rimraf && yarn lint && yarn test && yarn build"
+  },
+  "author": "Pierre Kraft",
+  "license": "MIT",
+  "devDependencies": {
+    "@team-griffin/install-self-peers": "^1.1.1",
+    "alsatian": "^1.3.1",
+    "rimraf": "^2.6.1",
+    "rollup": "^0.45.2",
+    "rollup-plugin-typescript2": "^0.4.6",
+    "ts-node": "^3.3.0",
+    "tslint": "^5.4.3",
+    "typescript": "^2.4.2",
+    "typings-tester": "^0.2.2"
+  },
+  "peerDependencies": {
+    "immutable": "facebook/immutable-js#c0308e7944956c2e3d5afe6c80a4869a92980f11"
+  }
+}
